@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 星塵遠征隊 (Stardust Expeditions) - 项目开发档案
 
-## Getting Started
+> 本文档自动生成于初始开发阶段结束之后，主要用于记录本项目的核心架构、设计规范、模块功能及本地运行方式。非常适合供给未来的自己或接手的工程师作为《交接手册》与《备忘录》使用。
 
-First, run the development server:
+## 1. 项目概述
+本项目是一个基于 **Next.js (App Router)** 和 **Tailwind CSS (v4)** 构建的单页前端网站。
+设计的最终目标是在视觉上极高程度地兼顾“自然博物的浪漫”与“科考记录的学术严谨”，全方位展示星尘远征队在深海、大气、地质及天文学的考察案例与数字化图文标本。
 
+## 2. 视觉与排版规范 (Design System)
+
+### 色彩体系 (Color Palette)
+- **深空蓝 (`#0B1021`, Deep Space)**: 用于主色调沉浸背景，表现星空、黑夜、深海等探险意象。
+- **大地卡其 (`#C3B091`, Earth Khaki) / 浅卡其 (`#E3D8C4`)**: 用于次级背景（档案馆纸张质感）、分隔线、小字说明及交互提示色的强反差高光。
+- **标题专色 (`#B3B3B3`, 30% Gray)**: 为了防止纯白高光在深色背景上的反差喧宾夺主，首屏的超级大字采用了沉稳的 30% 偏暗灰色以彰显深邃气息。
+
+### 字体排印 (Typography)
+- **全局字体**：全站坚决抛弃了任何传统衬线体（如明朝体/宋体），**统一使用无衬线黑体 (Nato Sans SC / 思源黑体同源)**，以保证界面的硬科幻极简味道。
+- **繁体字**：针对特定的核心标识（如首屏大字与页脚版权区的“**星塵遠征隊**”），使用繁体中文替换简体，增加文字的历史厚重感。
+- **字间距与居中补偿**：运用了较宽的 `tracking-[0.2em]`。为了解决 CSS 带来的视错觉右偏移，为所有该类元素配置了 `padding-left` 来找回绝对垂直居中的几何状态。
+
+### 网格规范
+严格贯彻了 **12 列基线网格 (12-column Baseline Grid)**，核心容器控制了最大页面宽度和模块的完美黄金分割比例对齐缝隙。
+
+---
+
+## 3. 已实现的核心板块布局 (Current Components)
+目前主要分为四大结构，且所有卡片及图形区块均内置了鼠标交互的暗色过渡与渐隐反馈动画：
+
+1. **Hero Section (星空首屏)** 位于 `src/components/HeroSection.tsx`
+   - 使用 HTML5 `canvas` 技术原生写出了具有拖影衰减和无规律极缓漂浮的大幅粒子星空背景。
+   - 内置了一个具备 SVG 星座轮廓降级方案的 Logo 区块。当正确置入图像资源时会无缝呈现为主视觉，去除了所有生硬边框。
+
+2. **Phase 01: Expeditions (过往考察)** 位于 `src/components/ExpeditionsSection.tsx`
+   - 以暗色为基调。采用不对称分布的网格占据模式（一排大栏8+4，或者一行三栏4+4+4的横向展示），分别展示了极光观测、撒哈拉古湖泊纪等独立考察项目。
+
+3. **Phase 02: Team (考察队员)** 位于 `src/components/TeamSection.tsx`
+   - 横跨页面中段。4 张角色信息卡片平分了所有可用网格（每人占 3 栏），通过细腻的外围微边框呼吸动效，展示人物缩写、科考职位（ASTRO, GEO, BIO）等详尽简历。
+
+4. **Phase 03: The Archive (数字档案馆)** 位于 `src/components/ArchiveSection.tsx`
+   - 彻底翻转背景色为大地色，模仿老式纸质期刊/学术标的风格。展现了从 7G 扇形区到奥尔特云带回的矿石图鉴名目。
+
+---
+
+## 4. 本地环境操作与跟进指南
+
+### A. 如何在以后启动项目？
+当您下次打开终端软件（Terminal）时，按照以下命令即可在本地看到并调试您的网站：
 ```bash
+# 1. 切换到项目所在目录
+cd /Users/amos/Documents/stardust-web421
+
+# 2. 启动本地开发服务引擎
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 3. 浏览器观看
+访问 http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### B. 如何让设计的最后一片拼图（Logo）完美展示？
+将您的“大角鹿 EST 1979”的主 LOGO 原文件直接命名为 `logo.png`，并且存入您电脑内部的以下路径中替换或覆盖即可：
+👉 `/Users/amos/Documents/stardust-web421/public/logo.png`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### C. 未来的扩充可能性 (Future Roadmap)
+- **素材接入**：现阶段的配图均由高级的样式抽象几何色块来占位，日后您只需有相应的科幻、深潜照片即可填充入 `Image` 组件中，页面会发生质变。
+- **数据结构抽离**：如果之后内容暴增，建议将 `projects`、`members` 和 `specimens` 数组从当前组件里直接抽离为一个独立的配置数据流文件（JSON/Markdown 配置方案甚至对接 CMS 平台）。
+- **多语言接入**：可引入 `next-intl` 处理星尘远征队在全球展示时的双语或多语言智能分发环境。
