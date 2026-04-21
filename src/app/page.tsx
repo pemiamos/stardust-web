@@ -10,7 +10,7 @@ export default function Home() {
       <ExpeditionsSection />
       <TeamSection />
       <ArchiveSection />
-      
+
       <footer className="w-full bg-deep-space text-earth-khaki/50 py-16 border-t border-earth-khaki/10 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em]">
         <div className="container-12 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
           <p className="tracking-[0.3em]">© {new Date().getFullYear()} 星塵遠征隊。</p>
